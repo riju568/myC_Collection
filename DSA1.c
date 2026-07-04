@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <math.h>
 
-// 250+ C Programs for Practice
+
 int basicArithmeticOperations()
 {
     int tom;
