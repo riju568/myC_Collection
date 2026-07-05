@@ -147,6 +147,132 @@ int rightRotateOfArryCall()
     }
     return 0;
 }
+// Add two matrices.
+int additionOf2Matrices()
+{
+    // Defining dimensions
+    int rows = 2;
+    int columns = 3;
+
+    // Initialize two 2D arrays (matrices)
+    int matrixA[2][3] = {
+        {1, 2, 3},
+        {4, 5, 6}};
+
+    int matrixB[2][3] = {
+        {7, 8, 9},
+        {10, 11, 12}};
+
+    // Matrix to store the result of the addition
+    int sumMatrix[2][3];
+
+    // Nested loops to traverse every row and every column
+    for (int rowIndex = 0; rowIndex < rows; rowIndex++)
+    {
+        for (int columnIndex = 0; columnIndex < columns; columnIndex++)
+        {
+
+            // Perform element-wise addition
+            sumMatrix[rowIndex][columnIndex] = matrixA[rowIndex][columnIndex] + matrixB[rowIndex][columnIndex];
+        }
+    }
+
+    // Displaying the result
+    printf("The sum of the two matrices is:\n");
+    for (int rowIndex = 0; rowIndex < rows; rowIndex++)
+    {
+        for (int columnIndex = 0; columnIndex < columns; columnIndex++)
+        {
+            printf("%d ", sumMatrix[rowIndex][columnIndex]);
+        }
+        printf("\n"); // Move to next line after printing a row
+    }
+
+    return 0;
+}
+
+// Subtract two matrices.
+
+int subtract2Matrices()
+{
+    // Defining dimensions
+    int rows = 2;
+    int columns = 3;
+
+    // Initialize two 2D arrays (matrices)
+    int matrixA[2][3] = {
+        {10, 20, 30},
+        {40, 50, 60}};
+
+    int matrixB[2][3] = {
+        {1, 2, 3},
+        {4, 5, 6}};
+
+    // Matrix to store the result of the subtraction
+    int diffMatrix[2][3];
+
+    // Nested loops to traverse every row and every column
+    for (int rowIndex = 0; rowIndex < rows; rowIndex++)
+    {
+        for (int columnIndex = 0; columnIndex < columns; columnIndex++)
+        {
+
+            // Perform element-wise subtraction
+            diffMatrix[rowIndex][columnIndex] = matrixA[rowIndex][columnIndex] - matrixB[rowIndex][columnIndex];
+        }
+    }
+
+    // Displaying the result
+    printf("The difference of the two matrices is:\n");
+    for (int rowIndex = 0; rowIndex < rows; rowIndex++)
+    {
+        for (int columnIndex = 0; columnIndex < columns; columnIndex++)
+        {
+            printf("%d ", diffMatrix[rowIndex][columnIndex]);
+        }
+        printf("\n"); // Move to next line after printing a row
+    }
+
+    return 0;
+}
+
+// Perform scalar matrix multiplication.
+int scalarMatrixMultiplication()
+{
+    int rows = 2;
+    int columns = 3;
+    int scalarValue = 5; // The constant to multiply by
+
+    int matrixA[2][3] = {
+        {1, 2, 3},
+        {4, 5, 6}};
+
+    int resultMatrix[2][3];
+
+    // Nested loops to traverse every element
+    for (int rowIndex = 0; rowIndex < rows; rowIndex++)
+    {
+        for (int columnIndex = 0; columnIndex < columns; columnIndex++)
+        {
+
+            // Multiply the current element by the scalar
+            resultMatrix[rowIndex][columnIndex] = matrixA[rowIndex][columnIndex] * scalarValue;
+        }
+    }
+
+    // Displaying the result
+    printf("The matrix after multiplying by scalar %d is:\n", scalarValue);
+    for (int rowIndex = 0; rowIndex < rows; rowIndex++)
+    {
+        for (int columnIndex = 0; columnIndex < columns; columnIndex++)
+        {
+            printf("%d ", resultMatrix[rowIndex][columnIndex]);
+        }
+        printf("\n");
+    }
+
+    return 0;
+}
 
 int main()
 {
