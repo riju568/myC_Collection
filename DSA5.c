@@ -244,11 +244,8 @@ int negativeInArray()
 // Copy all elements from an array to another array.
 int copyElementsArray2Array()
 {
-    // Define the source array containing the original data
     int sourceArrayOfNumbers[] = {10, 20, 30, 40, 50};
     int totalElementsInArray = sizeof(sourceArrayOfNumbers) / sizeof(sourceArrayOfNumbers[0]);
-
-    // Create a destination array of the exact same size to store the copy
     int destinationArrayOfNumbers[totalElementsInArray];
 
     // Loop through the source array and duplicate each element into the destination array
