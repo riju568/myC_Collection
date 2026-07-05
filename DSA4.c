@@ -234,10 +234,11 @@ int calendarTakingInput()
     return 0;
 }
 // Find A Grade Of Given Marks or (Find a Grade of Given Marks Using Switch Case)
-#include <stdio.h> // Find A Grade Of Given Marks or (Find a Grade of Given Marks Using Switch  Case)
+
 
 int gradeOfMarks()
 {
+    // #include <stdio.h> // Find A Grade Of Given Marks or (Find a Grade of Given Marks Using Switch  Case)
     int marks;
     char grade;
     printf("Enter marks (0-100): ");
