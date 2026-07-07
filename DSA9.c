@@ -403,6 +403,51 @@ int checkSparseMatrix() // function to call inside main function to display outp
 
     return 0;
 }
+// Check the symmetric matrix.
+#define N 3 // Matrix size (N x N)
+
+int is_symmetric_matrix(int mat[N][N])
+{
+    for (int i = 0; i < N; i++)
+    {
+        // j starts at i + 1 to check elements above the diagonal
+        // against their counterparts below the diagonal
+        for (int j = i + 1; j < N; j++)
+        {
+            if (mat[i][j] != mat[j][i])
+            {
+                return 0; // Found a mismatch, not symmetric
+            }
+        }
+    }
+    return 1; // All checked elements match, it is symmetric
+}
+
+int print_matrix(int mat[N][N])
+{
+    for (int i = 0; i < N; i++)
+    {
+        for (int j = 0; j < N; j++)
+        {
+            printf("%d ", mat[i][j]);
+        }
+        printf("\n");
+    }
+    return 0;
+}
+
+int checkSymmetricMatrix() // function to call inside main function to display output in console
+{
+    int mat[N][N] = {
+        {1, 2, 3},
+        {2, 4, 5},
+        {3, 5, 6}};
+    printf("Matrix:\n");
+    print_matrix(mat);
+    printf("\nResult: %s\n", is_symmetric_matrix(mat) ? "Yes, it is a Symmetric Matrix." : "No, it is NOT a Symmetric Matrix.");
+
+    return 0;
+}
 int main(void)
 {
     Summation_UpperTriangularMatrix();
@@ -416,6 +461,7 @@ int main(void)
     SummationOfDiagonals();
     summationEachRow_Column();
     upperTriangularMatrix();
+    checkSymmetricMatrix();
 
     return 0;
 }
