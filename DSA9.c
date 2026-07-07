@@ -279,8 +279,6 @@ int transpose_Matrix() // function to call inside main function to display outpu
 
 // Find determinant of a matrix.
 
-#define N 3 // Fixed size for a 3x3 matrix
-
 int calculate_determinant(int mat[N][N])
 {
     int det;
@@ -353,6 +351,58 @@ int Identity_Matrix() // function to call inside main function to display output
     return 0;
 }
 
+// Check the sparse matrix.
+
+int is_sparse_matrix(int mat[N][N])
+{
+    int zero_count = 0;
+
+    // Count the number of zeros in the matrix
+    for (int i = 0; i < N; i++)
+    {
+        for (int j = 0; j < N; j++)
+        {
+            if (mat[i][j] == 0)
+            {
+                zero_count++;
+            }
+        }
+    }
+
+    // A matrix is sparse if zeros outnumber non-zero elements
+    // (Total elements in an N x N matrix is N * N)
+    if (zero_count > (N * N) / 2)
+    {
+        return 1; // It is sparse
+    }
+
+    return 0; // It is not sparse
+}
+
+/* print_matrix already defined earlier as 'void print_matrix'. */
+
+int checkSparseMatrix() // function to call inside main function to display output in console
+{
+    // Example matrix with 6 zeros and 3 non-zero elements
+    int mat[N][N] = {
+        {1, 0, 0},
+        {0, 0, 2},
+        {7, 0, 0}};
+
+    printf("Matrix:\n");
+    print_matrix(mat);
+
+    if (is_sparse_matrix(mat))
+    {
+        printf("\nResult: Yes, it is a Sparse Matrix.\n");
+    }
+    else
+    {
+        printf("\nResult: No, it is NOT a Sparse Matrix.\n");
+    }
+
+    return 0;
+}
 int main(void)
 {
     Summation_UpperTriangularMatrix();
@@ -360,6 +410,7 @@ int main(void)
     transpose_Matrix();
     determinantMatrix();
     Identity_Matrix();
+    checkSparseMatrix();
     lowerTriangularMatrix();
     InterchangeDiagonals();
     SummationOfDiagonals();
