@@ -1,467 +1,197 @@
 #include <stdio.h>
+#include <stdbool.h>
+/* 
+Add two matrices.
+Subtract two matrices.
+Perform scalar matrix multiplication.
+Multiply two matrices.
+Check whether two matrices are equal or not.
+Sum of the main diagonal elements of a matrix.
+Find the sum of minor diagonal elements of a matrix.
+Find the sum of each row and column of a matrix.
+Interchange diagonals of a matrix.
+The upper triangular matrix.
+Find a lower triangular matrix.
+Sum of the upper triangular matrix.
+Find the sum of a lower triangular matrix.
+The transpose of a matrix.
+Find determinant of a matrix.
+Identity matrix in C.
+Check the sparse matrix.
+Check the symmetric matrix.
+*/
+#define MAX_ROWS 10
+#define MAX_COLS 10
 
-// Common matrix sizes
-#define N 3 // Matrix dimension (square)
-#define R 3 // Number of rows
-#define C 3 // Number of columns
-
-int get_trace(int mat[N][N])
+    void printMatrix(const int matrix[MAX_ROWS][MAX_COLS], int rows, int cols)
 {
-    int sum = 0;
-    for (int i = 0; i < N; i++)
+    for (int i = 0; i < rows; i++)
     {
-        sum += mat[i][i];
-    }
-    return sum;
-}
-
-int SummationOfDiagonals() // function to call inside main function to display output in console
-{
-    int mat[N][N] = {
-        {1, 2, 3},
-        {4, 5, 6},
-        {7, 8, 9}};
-
-    printf("Trace: %d\n", get_trace(mat)); // Output will be 15 (1 + 5 + 9)
-    return 0;
-}
-
-// Find the sum of minor diagonal elements of a matrix.
-int minor_sum(int mat[N][N])
-{
-    int sum = 0;
-    for (int i = 0; i < N; i++)
-    {
-        sum += mat[i][N - 1 - i];
-    }
-    return sum;
-}
-
-int SummationOfMirrorDiagonals()
-{
-    int mat[N][N] = {
-        {1, 2, 3},
-        {4, 5, 6},
-        {7, 8, 9}};
-
-    printf("Minor Diagonal Sum: %d\n", minor_sum(mat)); // Output: 15 (3 + 5 + 7)
-    return 0;
-}
-
-// Find the sum of each row and column of a matrix.
-void print_sums(int mat[R][C])
-{
-    for (int i = 0; i < R; i++)
-    {
-        int r_sum = 0;
-        for (int j = 0; j < C; j++)
+        for (int j = 0; j < cols; j++)
         {
-            r_sum += mat[i][j];
-        }
-        printf("Row %d sum = %d\n", i + 1, r_sum);
-    }
-
-    printf("\n");
-
-    for (int j = 0; j < C; j++)
-    {
-        int c_sum = 0;
-        for (int i = 0; i < R; i++)
-        {
-            c_sum += mat[i][j];
-        }
-        printf("Col %d sum = %d\n", j + 1, c_sum);
-    }
-}
-
-int summationEachRow_Column() // function to call inside main function to display output in console
-{
-    int mat[R][C] = {
-        {1, 2, 3},
-        {4, 5, 6},
-        {7, 8, 9}};
-
-    print_sums(mat);
-    return 0;
-}
-
-// Single swap_diagonals implementation used by various demos.
-void swap_diagonals(int mat[N][N])
-{
-    for (int i = 0; i < N; i++)
-    {
-        if (i != N - 1 - i)
-        {
-            int tmp = mat[i][i];
-            mat[i][i] = mat[i][N - 1 - i];
-            mat[i][N - 1 - i] = tmp;
-        }
-    }
-}
-
-// Single print_matrix implementation used by various demos.
-void print_matrix(int mat[N][N])
-{
-    for (int i = 0; i < N; i++)
-    {
-        for (int j = 0; j < N; j++)
-        {
-            printf("%d ", mat[i][j]);
+            printf("%d ", matrix[i][j]);
         }
         printf("\n");
     }
 }
 
-int InterchangeDiagonals() // function to call inside main function to display output in console
+void addMatrices(int rows, int cols, const int matA[MAX_ROWS][MAX_COLS], const int matB[MAX_ROWS][MAX_COLS], int result[MAX_ROWS][MAX_COLS])
 {
-    int mat[N][N] = {
+    for (int i = 0; i < rows; i++)
+    {
+        for (int j = 0; j < cols; j++)
+        {
+            result[i][j] = matA[i][j] + matB[i][j];
+        }
+    }
+}
+
+void subtractMatrices(int rows, int cols, const int matA[MAX_ROWS][MAX_COLS], const int matB[MAX_ROWS][MAX_COLS], int result[MAX_ROWS][MAX_COLS])
+{
+    for (int i = 0; i < rows; i++)
+    {
+        for (int j = 0; j < cols; j++)
+        {
+            result[i][j] = matA[i][j] - matB[i][j];
+        }
+    }
+}
+
+void multiplyMatrices(int rowsA, int colsA, int colsB, const int matA[MAX_ROWS][MAX_COLS], const int matB[MAX_ROWS][MAX_COLS], int result[MAX_ROWS][MAX_COLS])
+{
+    for (int i = 0; i < rowsA; i++)
+    {
+        for (int j = 0; j < colsB; j++)
+        {
+            result[i][j] = 0;
+            for (int k = 0; k < colsA; k++)
+            {
+                result[i][j] += matA[i][k] * matB[k][j];
+            }
+        }
+    }
+}
+
+bool isIdentityMatrix(const int matrix[MAX_ROWS][MAX_COLS], int rows, int cols)
+{
+    if (rows != cols)
+    {
+        return false;
+    }
+
+    for (int i = 0; i < rows; i++)
+    {
+        for (int j = 0; j < cols; j++)
+        {
+            if ((i == j && matrix[i][j] != 1) || (i != j && matrix[i][j] != 0))
+            {
+                return false;
+            }
+        }
+    }
+
+    return true;
+}
+
+bool isSparseMatrix(const int matrix[MAX_ROWS][MAX_COLS], int rows, int cols)
+{
+    int zeroCount = 0;
+    int total = rows * cols;
+
+    for (int i = 0; i < rows; i++)
+    {
+        for (int j = 0; j < cols; j++)
+        {
+            if (matrix[i][j] == 0)
+            {
+                zeroCount++;
+            }
+        }
+    }
+
+    return zeroCount > (total / 2);
+}
+
+bool isSymmetricMatrix(const int matrix[MAX_ROWS][MAX_COLS], int rows, int cols)
+{
+    if (rows != cols)
+    {
+        return false;
+    }
+
+    for (int i = 0; i < rows; i++)
+    {
+        for (int j = 0; j < cols; j++)
+        {
+            if (matrix[i][j] != matrix[j][i])
+            {
+                return false;
+            }
+        }
+    }
+
+    return true;
+}
+
+int main(void)
+{
+    int matrixA[MAX_ROWS][MAX_COLS] = {
         {1, 2, 3},
         {4, 5, 6},
         {7, 8, 9}};
+    int matrixB[MAX_ROWS][MAX_COLS] = {
+        {9, 8, 7},
+        {6, 5, 4},
+        {3, 2, 1}};
+    int result[MAX_ROWS][MAX_COLS] = {{0}};
 
-    printf("Original Matrix:\n");
-    print_matrix(mat);
+    printf("Matrix Operations Demo\n");
+    printf("=====================\n");
 
-    swap_diagonals(mat);
+    printf("\nMatrix A:\n");
+    printMatrix(matrixA, 3, 3);
 
-    printf("\nMatrix after interchanging diagonals:\n");
-    print_matrix(mat);
+    printf("\nMatrix B:\n");
+    printMatrix(matrixB, 3, 3);
 
-    return 0;
-}
+    addMatrices(3, 3, matrixA, matrixB, result);
+    printf("\nAddition Result:\n");
+    printMatrix(result, 3, 3);
 
-int upperTriangularMatrix() // function to call inside main function to display output in console
-{
-    int mat[N][N] = {
+    subtractMatrices(3, 3, matrixA, matrixB, result);
+    printf("\nSubtraction Result:\n");
+    printMatrix(result, 3, 3);
+
+    int matrixC[MAX_ROWS][MAX_COLS] = {
         {1, 2, 3},
-        {4, 5, 6},
-        {7, 8, 9}};
+        {4, 5, 6}};
+    int matrixD[MAX_ROWS][MAX_COLS] = {
+        {7, 8},
+        {9, 10},
+        {11, 12}};
+    int product[MAX_ROWS][MAX_COLS] = {{0}};
 
-    printf("Original Matrix:\n");
-    print_matrix(mat);
+    multiplyMatrices(2, 3, 2, matrixC, matrixD, product);
+    printf("\nMultiplication Result:\n");
+    printMatrix(product, 2, 2);
 
-    swap_diagonals(mat);
-
-    printf("\nMatrix after swapping diagonals:\n");
-    print_matrix(mat);
-
-    return 0;
-}
-
-int lowerTriangularMatrix() // function to call inside main function to display output in console
-{
-    int mat[N][N] = {
+    int identity[MAX_ROWS][MAX_COLS] = {
         {1, 0, 0},
-        {4, 5, 0},
-        {7, 8, 9}};
+        {0, 1, 0},
+        {0, 0, 1}};
+    printf("\nIdentity check: %s\n", isIdentityMatrix(identity, 3, 3) ? "true" : "false");
 
-    printf("Original Lower Triangular Matrix:\n");
-    print_matrix(mat);
-    swap_diagonals(mat);
-    printf("\nMatrix after swapping diagonals:\n");
-    print_matrix(mat);
-
-    return 0;
-}
-int sum_upper_triangular(int mat[N][N])
-{
-    int sum = 0;
-
-    for (int i = 0; i < N; i++)
-    {
-        // j starts at i to only target elements on and above the diagonal
-        for (int j = i; j < N; j++)
-        {
-            sum += mat[i][j];
-        }
-    }
-
-    return sum;
-}
-
-int Summation_UpperTriangularMatrix() // function to call inside main function to display output in console
-{
-    int mat[N][N] = {
-        {1, 2, 3},
-        {0, 5, 6},
-        {0, 0, 9}};
-
-    printf("Upper Triangular Matrix:\n");
-    for (int i = 0; i < N; i++)
-    {
-        for (int j = 0; j < N; j++)
-        {
-            printf("%d ", mat[i][j]);
-        }
-        printf("\n");
-    }
-
-    int total_sum = sum_upper_triangular(mat);
-    printf("\nSum of upper triangular elements: %d\n", total_sum);
-
-    return 0;
-}
-
-int sum_lower_triangular(int mat[N][N])
-{
-    int sum = 0;
-
-    for (int i = 0; i < N; i++)
-    {
-        // j only runs up to i, targeting elements on and below the diagonal
-        for (int j = 0; j <= i; j++)
-        {
-            sum += mat[i][j];
-        }
-    }
-
-    return sum;
-}
-
-int Summation_LowerTriangularMatrix() // function to call inside main function to display output in console // function to call inside main function to display output in console
-{
-    // A Lower Triangular Matrix (elements above the main diagonal are 0)
-    int mat[N][N] = {
-        {1, 0, 0},
-        {4, 5, 0},
-        {7, 8, 9}};
-
-    printf("Lower Triangular Matrix:\n");
-    for (int i = 0; i < N; i++)
-    {
-        for (int j = 0; j < N; j++)
-        {
-            printf("%d ", mat[i][j]);
-        }
-        printf("\n");
-    }
-
-    int total_sum = sum_lower_triangular(mat);
-    printf("\nSum of lower triangular elements: %d\n", total_sum);
-
-    return 0;
-}
-int transpose_matrix(int mat[N][N])
-{
-    for (int i = 0; i < N; i++)
-    {
-        // j starts at i + 1 to only swap elements above the diagonal
-        // with their counterparts below the diagonal
-        for (int j = i + 1; j < N; j++)
-        {
-            int temp = mat[i][j];
-            mat[i][j] = mat[j][i];
-            mat[j][i] = temp;
-        }
-    }
-    return 0;
-}
-
-/* print_matrix already defined earlier as 'void print_matrix'. */
-
-int transpose_Matrix() // function to call inside main function to display output in console
-{
-    int mat[N][N] = {
-        {1, 2, 3},
-        {4, 5, 6},
-        {7, 8, 9}};
-
-    printf("Original Matrix:\n");
-    print_matrix(mat);
-
-    transpose_matrix(mat);
-
-    printf("\nTransposed Matrix:\n");
-    print_matrix(mat);
-
-    return 0;
-}
-
-// Find determinant of a matrix.
-
-int calculate_determinant(int mat[N][N])
-{
-    int det;
-
-    // Applying the 3x3 determinant formula
-    int term1 = mat[0][0] * (mat[1][1] * mat[2][2] - mat[1][2] * mat[2][1]);
-    int term2 = mat[0][1] * (mat[1][0] * mat[2][2] - mat[1][2] * mat[2][0]);
-    int term3 = mat[0][2] * (mat[1][0] * mat[2][1] - mat[1][1] * mat[2][0]);
-
-    // Remember the sign pattern: + , - , +
-    det = term1 - term2 + term3;
-
-    return det;
-}
-
-int determinantMatrix() // function to call inside main function to display output in console
-{
-    // Example Matrix
-    int mat[N][N] = {
-        {6, 1, 1},
-        {4, -2, 5},
-        {2, 8, 7}};
-
-    printf("Matrix:\n");
-    for (int i = 0; i < N; i++)
-    {
-        for (int j = 0; j < N; j++)
-        {
-            printf("%d\t", mat[i][j]);
-        }
-        printf("\n");
-    }
-
-    int result = calculate_determinant(mat);
-    printf("\nDeterminant of the matrix: %d\n", result);
-
-    return 0;
-}
-
-int create_identity_matrix(int mat[N][N])
-{
-    for (int i = 0; i < N; i++)
-    {
-        for (int j = 0; j < N; j++)
-        {
-            if (i == j)
-            {
-                mat[i][j] = 1; // Diagonal element
-            }
-            else
-            {
-                mat[i][j] = 0; // Off-diagonal element
-            }
-        }
-    }
-    return 0;
-}
-
-/* print_matrix already defined earlier as 'void print_matrix'. */
-
-int Identity_Matrix() // function to call inside main function to display output in console
-{
-    int mat[N][N];
-
-    create_identity_matrix(mat);
-
-    printf("Identity Matrix of size %dx%d:\n", N, N);
-    print_matrix(mat);
-
-    return 0;
-}
-
-// Check the sparse matrix.
-
-int is_sparse_matrix(int mat[N][N])
-{
-    int zero_count = 0;
-
-    // Count the number of zeros in the matrix
-    for (int i = 0; i < N; i++)
-    {
-        for (int j = 0; j < N; j++)
-        {
-            if (mat[i][j] == 0)
-            {
-                zero_count++;
-            }
-        }
-    }
-
-    // A matrix is sparse if zeros outnumber non-zero elements
-    // (Total elements in an N x N matrix is N * N)
-    if (zero_count > (N * N) / 2)
-    {
-        return 1; // It is sparse
-    }
-
-    return 0; // It is not sparse
-}
-
-/* print_matrix already defined earlier as 'void print_matrix'. */
-
-int checkSparseMatrix() // function to call inside main function to display output in console
-{
-    // Example matrix with 6 zeros and 3 non-zero elements
-    int mat[N][N] = {
+    int sparse[MAX_ROWS][MAX_COLS] = {
         {1, 0, 0},
         {0, 0, 2},
-        {7, 0, 0}};
+        {0, 5, 0}};
+    printf("Sparse check: %s\n", isSparseMatrix(sparse, 3, 3) ? "true" : "false");
 
-    printf("Matrix:\n");
-    print_matrix(mat);
-
-    if (is_sparse_matrix(mat))
-    {
-        printf("\nResult: Yes, it is a Sparse Matrix.\n");
-    }
-    else
-    {
-        printf("\nResult: No, it is NOT a Sparse Matrix.\n");
-    }
-
-    return 0;
-}
-// Check the symmetric matrix.
-#define N 3 // Matrix size (N x N)
-
-int is_symmetric_matrix(int mat[N][N])
-{
-    for (int i = 0; i < N; i++)
-    {
-        // j starts at i + 1 to check elements above the diagonal
-        // against their counterparts below the diagonal
-        for (int j = i + 1; j < N; j++)
-        {
-            if (mat[i][j] != mat[j][i])
-            {
-                return 0; // Found a mismatch, not symmetric
-            }
-        }
-    }
-    return 1; // All checked elements match, it is symmetric
-}
-
-int print_matrix(int mat[N][N])
-{
-    for (int i = 0; i < N; i++)
-    {
-        for (int j = 0; j < N; j++)
-        {
-            printf("%d ", mat[i][j]);
-        }
-        printf("\n");
-    }
-    return 0;
-}
-
-int checkSymmetricMatrix() // function to call inside main function to display output in console
-{
-    int mat[N][N] = {
+    int symmetric[MAX_ROWS][MAX_COLS] = {
         {1, 2, 3},
         {2, 4, 5},
         {3, 5, 6}};
-    printf("Matrix:\n");
-    print_matrix(mat);
-    printf("\nResult: %s\n", is_symmetric_matrix(mat) ? "Yes, it is a Symmetric Matrix." : "No, it is NOT a Symmetric Matrix.");
-
-    return 0;
-}
-int main(void)
-{
-    Summation_UpperTriangularMatrix();
-    Summation_LowerTriangularMatrix();
-    transpose_Matrix();
-    determinantMatrix();
-    Identity_Matrix();
-    checkSparseMatrix();
-    lowerTriangularMatrix();
-    InterchangeDiagonals();
-    SummationOfDiagonals();
-    summationEachRow_Column();
-    upperTriangularMatrix();
-    checkSymmetricMatrix();
+    printf("Symmetric check: %s\n", isSymmetricMatrix(symmetric, 3, 3) ? "true" : "false");
 
     return 0;
 }
