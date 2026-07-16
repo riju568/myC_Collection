@@ -2,6 +2,7 @@
 This code base own and maintained by Tanmoy Samnata using standardization C23 (ISO/IEC 9899:2024)
 */
 
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -16,9 +17,7 @@ int calculate_range_sum_recursive(int current_number, int upper_bound, bool choo
     bool is_current_even = (current_number % 2 == 0);
     int term_value = 0;
     if ((choose_even && is_current_even) || (!choose_even && !is_current_even))
-    {
-        term_value = current_number;
-    }
+    {term_value = current_number;}
     return term_value + calculate_range_sum_recursive(current_number + 1, upper_bound, choose_even);
 }
 
