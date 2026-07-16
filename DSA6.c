@@ -1,3 +1,7 @@
+/*
+This code base own and maintained by Tanmoy Samnata using standardization C23 (ISO/IEC 9899:2024)
+*/
+
 #include <stdio.h>
 // Merge two arrays to the third array.
 int twoArray2NewArray()
