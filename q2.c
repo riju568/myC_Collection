@@ -1,3 +1,7 @@
+/*
+2. Explicit Memory Alignment
+Arrays have to be aligned on byte addresses compatible to the architecture, which also fit the structure of the CPU’s SIMD registers in order to perform loads to optimum speed (e.g., for AVX2 arrays must be aligned on 32-bytes, for AVX-512 on 64-bytes, just to take a couple examples). The standard malloc does not offer sufficient alignment guaranteed. Instead of the default malloc compute functions employ posixmemalign() and in C11 the functions alignedalloc() in order to allocate big enough aligned arrays for aligned access along cache lines.
+*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <immintrin.h>
