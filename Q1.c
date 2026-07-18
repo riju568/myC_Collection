@@ -1,3 +1,7 @@
+/*
+1. Cache Locality and Matrix Layout
+CPUs don’t go to RAM to pick up the data byte-by-byte; rather they bring blocks of data into memory named cache lines (64 bytes in size). Since C keeps multi-dimensional arrays in row-major order, all of the elements that are adjacent in a row are physically close to each other in memory. */
+
 #include <stdio.h>
 #include <stdlib.h>
 
